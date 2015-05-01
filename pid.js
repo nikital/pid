@@ -27,7 +27,7 @@
 
     function pid() {
         var error = setpoint - x;
-        integral += error;
+        integral += error * .01;
         var derivative = error - prevError;
         prevError = error;
         return 0.001 * (kp * error + ki * integral + kd * derivative);
@@ -39,7 +39,7 @@
 
         var ax = pid(dt);
         // console.log(ax);
-        ax = Math.max(Math.min(ax, 1.0), -1.0);
+        ax = Math.max(Math.min(ax, 0.2), -0.2);
         vx += ax;
         // vx *= 0.99;
         x += vx;
@@ -54,7 +54,7 @@
         ctx.fill();
 
         ctx.fillStyle = "#F77825"
-        ctx.fillRect(x, c.height/2-4, 100 * ax, 8);
+        ctx.fillRect(x, c.height/2-4, 200 * ax, 8);
 
         requestAnimationFrame(update);
     }
