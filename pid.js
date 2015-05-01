@@ -8,7 +8,6 @@
 
     function resizeCanvas() {
         c.width = window.innerWidth;
-        // c.height = window.innerHeight;
     }
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
@@ -16,17 +15,34 @@
     ////////// PID //////////
     var prevTime = -16;
     var x = 20;
-    var setpoint = x;
+    var vx = 0;
 
-    function pid(dt) {
-        x += (setpoint - x) * 0.1;
+    var setpoint = x;
+    var prevError = 0;
+    var integral = 0;
+
+    var kp = 1.0;
+    var ki = 0.0;
+    var kd = 80.0;
+
+    function pid() {
+        var error = setpoint - x;
+        integral += error;
+        var derivative = error - prevError;
+        prevError = error;
+        return 0.001 * (kp * error + ki * integral + kd * derivative);
     }
 
     function update(time) {
         var dt = time - prevTime;
         prevTime = time;
 
-        pid(dt);
+        var ax = pid(dt);
+        // console.log(ax);
+        ax = Math.max(Math.min(ax, 1.0), -1.0);
+        vx += ax;
+        // vx *= 0.99;
+        x += vx;
 
         ctx.fillStyle = "#E7D492";
         ctx.fillRect(0, 0, c.width, c.height);
@@ -45,6 +61,7 @@
     ////////// CLICKS //////////
     function canvasClick(e) {
         setpoint = e.clientX;
+        prevError = setpoint - x;
     }
     c.addEventListener("click", canvasClick);
 
