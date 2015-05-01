@@ -23,7 +23,7 @@
 
     var kp = 1.0;
     var ki = 0.0;
-    var kd = 80.0;
+    var kd = 60.0;
 
     function pid() {
         var error = setpoint - x;
@@ -53,6 +53,9 @@
         ctx.closePath();
         ctx.fill();
 
+        ctx.fillStyle = "#F77825"
+        ctx.fillRect(x, c.height/2-4, 100 * ax, 8);
+
         requestAnimationFrame(update);
     }
 
@@ -61,7 +64,7 @@
     ////////// CLICKS //////////
     function canvasClick(e) {
         setpoint = e.clientX;
-        prevError = setpoint - x;
+        // prevError = setpoint - x;
     }
     c.addEventListener("click", canvasClick);
 
