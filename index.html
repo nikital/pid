@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
+            color: #554236;
+            font-family: sans-serif;
+
             margin: 0;
             overflow: hidden;
         }
         .caption {
-            color: #554236;
-            font-family: sans-serif;
             font-weight: bold;
 
             position: absolute;
@@ -23,6 +24,12 @@
         .caption a {
             color: #F77825;
         }
+        .control {
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin: 10px;
+        }
     </style>
 </head>
 <body>
@@ -30,7 +37,15 @@
     <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>.
     CLICK TO FLY. Ball is physically simulated, orange lines represent your thrusters.
 </span>
-<canvas id="c" height="100px"></canvas>
+<span class="control">
+    <label for="kp">Kp</label>
+    <input type="text" id="kp" size="8">
+    <label for="ki">Ki</label>
+    <input type="text" id="ki" size="8">
+    <label for="kd">Kd</label>
+    <input type="text" id="kd" size="8">
+</span>
+<canvas id="c"></canvas>
 <script src="pid.js"></script>
 </body>
 </html>

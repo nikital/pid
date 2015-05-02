@@ -120,4 +120,23 @@
     }
     c.addEventListener("click", canvasClick);
 
+    ////////// FORM //////////
+    var kpInput = document.getElementById("kp");
+    var kiInput = document.getElementById("ki");
+    var kdInput = document.getElementById("kd");
+
+    function updateCoefficients() {
+        kp = parseInt(kpInput.value);
+        ki = parseInt(kiInput.value);
+        kd = parseInt(kdInput.value);
+    }
+
+    kpInput.addEventListener("blur", updateCoefficients);
+    kiInput.addEventListener("blur", updateCoefficients);
+    kdInput.addEventListener("blur", updateCoefficients);
+
+    kpInput.value = kp;
+    kiInput.value = ki;
+    kdInput.value = kd;
+
 })();
