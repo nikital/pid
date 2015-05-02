@@ -80,6 +80,15 @@
             ctx.fill();
         }
 
+        ctx.strokeStyle = "#60B99A";
+        ctx.lineWidth = 1;
+        ctx.setLineDash([8, 14]);
+        ctx.beginPath()
+        ctx.moveTo(setpointX, setpointY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
         ctx.fillStyle = "#7B5747";
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, 2 * Math.PI, false);
@@ -90,7 +99,7 @@
         ctx.lineWidth = 8;
         ctx.lineCap = "round";
         ctx.beginPath()
-        ctx.lineTo(x, y);
+        ctx.moveTo(x, y);
         ctx.lineTo(x - ax * 300, y);
         ctx.stroke();
         ctx.beginPath()
