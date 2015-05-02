@@ -14,8 +14,8 @@
     window.addEventListener("resize", resizeCanvas);
 
     ////////// PID //////////
-    var x = 20;
-    var y = 20;
+    var x = 100;
+    var y = 100;
     var vx = 0;
     var vy = 0;
 
