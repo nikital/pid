@@ -26,9 +26,9 @@
     var integralX = 0;
     var integralY = 0;
 
-    var kp = 1.0;
-    var ki = 0.0;
-    var kd = 60.0;
+    var kp = 3.0;
+    var ki = 0.0001;
+    var kd = 80.0;
 
     var history = [];
     var historyTick = 0;
@@ -129,6 +129,8 @@
         kp = parseFloat(kpInput.value);
         ki = parseFloat(kiInput.value);
         kd = parseFloat(kdInput.value);
+        integralX = 0;
+        integralY = 0;
     }
 
     kpInput.addEventListener("blur", updateCoefficients);
