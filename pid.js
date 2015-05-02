@@ -30,6 +30,9 @@
     var ki = 0.0;
     var kd = 60.0;
 
+    var history = [];
+    var historyTick = 0;
+
     function pid() {
         var errorX = setpointX - x;
         integralX += errorX;
@@ -57,8 +60,25 @@
         x += vx;
         y += vy;
 
+        if (++historyTick == 5) {
+            historyTick = 0;
+
+            if (history.length >= 50) {
+                history.shift();
+            }
+            history.push([x, y])
+        }
+
         ctx.fillStyle = "#E7D492";
         ctx.fillRect(0, 0, c.width, c.height);
+
+        for (var i = 0; i < history.length; ++i) {
+            ctx.fillStyle = "rgba(96,185,154,"+(i/history.length)+")";
+            ctx.beginPath();
+            ctx.arc(history[i][0], history[i][1], 5, 0, 2 * Math.PI, false);
+            ctx.closePath();
+            ctx.fill();
+        }
 
         ctx.fillStyle = "#7B5747";
         ctx.beginPath();
@@ -71,11 +91,11 @@
         ctx.lineCap = "round";
         ctx.beginPath()
         ctx.lineTo(x, y);
-        ctx.lineTo(x - ax * 200, y);
+        ctx.lineTo(x - ax * 300, y);
         ctx.stroke();
         ctx.beginPath()
         ctx.lineTo(x, y);
-        ctx.lineTo(x, y - ay * 200);
+        ctx.lineTo(x, y - ay * 300);
         ctx.stroke();
 
         requestAnimationFrame(update);
