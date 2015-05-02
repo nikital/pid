@@ -7,9 +7,22 @@
             margin: 0;
             overflow: hidden;
         }
+        .caption {
+            color: #554236;
+            font-family: sans-serif;
+            font-weight: bold;
+
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin: 10px;
+
+            cursor: default;
+        }
     </style>
 </head>
 <body>
+<span class="caption">PID controller, CLICK TO FLY</span>
 <canvas id="c" height="100px"></canvas>
 <script src="pid.js"></script>
 </body>
