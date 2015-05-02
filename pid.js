@@ -48,7 +48,7 @@
             0.001 * (kp * errorY + ki * integralY + kd * derivativeY)];
     }
 
-    function update(time) {
+    function update() {
         var a = pid();
         var ax = a[0];
         var ay = a[1];
@@ -107,7 +107,8 @@
         ctx.lineTo(x, y - ay * 300);
         ctx.stroke();
 
-        requestAnimationFrame(update);
+        // requestAnimationFrame(update);
+        setTimeout(update, 16);
     }
 
     update(0);
