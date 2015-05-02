@@ -126,9 +126,9 @@
     var kdInput = document.getElementById("kd");
 
     function updateCoefficients() {
-        kp = parseInt(kpInput.value);
-        ki = parseInt(kiInput.value);
-        kd = parseInt(kdInput.value);
+        kp = parseFloat(kpInput.value);
+        ki = parseFloat(kiInput.value);
+        kd = parseFloat(kdInput.value);
     }
 
     kpInput.addEventListener("blur", updateCoefficients);
