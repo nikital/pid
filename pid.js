@@ -27,11 +27,20 @@
     var integralY = 0;
 
     var kp = 3.0;
-    var ki = 0.0001;
+    var ki = 0.1;
+    var sat = 1000;
     var kd = 80.0;
+    var wind = 0.01;
 
     var history = [];
     var historyTick = 0;
+
+    var deltaXInput = document.getElementById("deltaX");
+    var deltaYInput = document.getElementById("deltaY");
+    
+    function saturate(x) {
+        return Math.min(Math.max(x,0-sat),sat)
+    }
 
     function pid() {
         var errorX = setpointX - x;
@@ -44,6 +53,10 @@
         var derivativeY = errorY - prevErrorY;
         prevErrorY = errorY;
 
+        deltaY.value = +errorY.toFixed(3);
+        deltaX.value = +errorX.toFixed(3);
+        integralX=saturate(integralX)
+        integralY=saturate(integralY)
         return [0.001 * (kp * errorX + ki * integralX + kd * derivativeX),
             0.001 * (kp * errorY + ki * integralY + kd * derivativeY)];
     }
@@ -55,7 +68,7 @@
         var maxA = 0.2;
         ax = Math.max(Math.min(ax, maxA), -maxA);
         ay = Math.max(Math.min(ay, maxA), -maxA);
-        vx += ax;
+        vx += ax + wind;
         vy += ay;
         x += vx;
         y += vy;
@@ -123,22 +136,30 @@
     ////////// FORM //////////
     var kpInput = document.getElementById("kp");
     var kiInput = document.getElementById("ki");
+    var satInput = document.getElementById("sat");
     var kdInput = document.getElementById("kd");
+    var windInput = document.getElementById("wind");
 
     function updateCoefficients() {
         kp = parseFloat(kpInput.value);
         ki = parseFloat(kiInput.value);
+        sat = parseFloat(satInput.value);
         kd = parseFloat(kdInput.value);
+        wind = parseFloat(windInput.value);
         integralX = 0;
         integralY = 0;
     }
 
     kpInput.addEventListener("blur", updateCoefficients);
     kiInput.addEventListener("blur", updateCoefficients);
+    satInput.addEventListener("blur", updateCoefficients);
     kdInput.addEventListener("blur", updateCoefficients);
+    windInput.addEventListener("blur", updateCoefficients);
 
     kpInput.value = kp;
     kiInput.value = ki;
+    satInput.value = sat;
     kdInput.value = kd;
+    windInput.value = wind;
 
 })();
